@@ -42,7 +42,7 @@ def image_search(source_url):
 
     # Retrieve the dimensions of the first image shown
     newImageDimenXpath = '//*[@class="row matches"]/div/div[1]/div[2]/p[1]/span[2]'
-    newImageDimensions = WebDriverWait(driver, 3).until(lambda driver: driver.find_element_by_xpath(newImageDimenXpath))
+    newImageDimensions = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_xpath(newImageDimenXpath))
 
     # Store the element's dimensions as a string
     newDimensions = newImageDimensions.text[:-1]
@@ -54,7 +54,7 @@ def image_search(source_url):
 
     # Retrieve the new image URL
     newImageXpath = '//*[@class="row matches"]/div/div[1]/div[2]/a[1]/img/@src'
-    newImageURL   = WebDriverWait(driver, 3).until(lambda driver: driver.find_element_by_xpath(newImageXpath))
+    newImageURL   = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_xpath(newImageXpath))
     newImageURL   = newImageURL.text
   
     # Switch to source image URL on browser
@@ -91,6 +91,7 @@ def run_bot():
 
             # Grab the submission's image URL linked to the comment
             submissionURL = comment.submission.url
+            print("Submission URL found!")
             
             # Pass the submission URL to image_search() to compare dimensions
             userMessage = image_search(submissionURL)
