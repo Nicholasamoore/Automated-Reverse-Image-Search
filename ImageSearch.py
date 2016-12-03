@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 import unittest
 
+
 class LoginTest(unittest.TestCase):
 
     # Set up for tineye.com
@@ -20,7 +21,7 @@ class LoginTest(unittest.TestCase):
         urlFieldElement  = WebDriverWait(driver, 3).until(lambda driver: driver.find_element_by_id(urlFieldID))
         submitElement    = WebDriverWait(driver, 3).until(lambda driver: driver.find_element_by_xpath(submitXpath))
 
-        #print(topResultElement)
+  
         # Clear the URL field
         urlFieldElement.clear()
         # Enter the image URL into the text field
@@ -55,7 +56,7 @@ class LoginTest(unittest.TestCase):
             newImageXpath = '//*[@class="row matches"]/div/div[1]/div[2]/a[1]/img/@src'
             newImageURL   = WebDriverWait(driver, 3).until(lambda driver: driver.find_element_by_xpath(newImageXpath))
             newImageURL   = newImageURL.text
-            print(newImageURL) # Testing purposes
+            print(newImageURL)
         else:
             userMessage = "Sorry, a larger image cannot be found."
 
