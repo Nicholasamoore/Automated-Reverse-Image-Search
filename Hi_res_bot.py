@@ -29,14 +29,15 @@ def compare_images(newWidth,newHeight,oldWidth,oldHeight,newImageURL):
 def image_search(source_url):
     driver = webdriver.Chrome("C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe")
 
+    # Open the Imgur URL
     driver.get(source_url)
 
+    # Get the URL of the image
     imagexpath = driver.find_element_by_xpath('//*[@id="5Q93S9L"]/div[1]/img')
     img_src = imagexpath.get_attribute("src")
+    redditImageURL = img_src
 
     driver.get("https://images.google.com/")
-
-    redditImageURL = img_src
 
     # Find and click the photo icon
     photoIconXpath = '//*[@id="qbi"]'
@@ -137,4 +138,4 @@ def run_bot():
 
 while True:
     run_bot()
-    time.sleep(20)
+    time.sleep(300)

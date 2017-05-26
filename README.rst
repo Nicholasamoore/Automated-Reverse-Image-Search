@@ -3,7 +3,7 @@ Automated Reverse Image Search
 
 Reddit.com bot
 
-A personal project that uses Selenium and the Reddit API to automate a reverse image search on Google. This is my first attempt at experimenting with Selenium. 'combined_google_v2.py' is the most recent program.
+A personal project that uses Selenium and the Reddit API to automate a reverse image search on Google. This is my first attempt at experimenting with Selenium. 
 
 .. image:: search3.jpg
 
