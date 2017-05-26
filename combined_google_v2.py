@@ -28,9 +28,15 @@ def compare_images(newWidth,newHeight,oldWidth,oldHeight,newImageURL):
 
 def image_search(source_url):
     driver = webdriver.Chrome("C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe")
+
+    driver.get(source_url)
+
+    imagexpath = driver.find_element_by_xpath('//*[@id="5Q93S9L"]/div[1]/img')
+    img_src = imagexpath.get_attribute("src")
+
     driver.get("https://images.google.com/")
 
-    redditImageURL = source_url
+    redditImageURL = img_src
 
     # Find and click the photo icon
     photoIconXpath = '//*[@id="qbi"]'
@@ -40,7 +46,8 @@ def image_search(source_url):
     # Find the search field and paste source_url
     searchFieldXpath = '//*[@id="qbui"]'
     searchField = driver.find_element_by_xpath(searchFieldXpath)
-    searchField.send_keys(source_url)
+    searchField.send_keys(redditImageURL)
+
 
     # Find and click "Search by image" button
     searchButtonXpath = '//*[@id="qbbtc"]/input'
@@ -59,11 +66,12 @@ def image_search(source_url):
         firstImage.click()
 
         # Click on "View Image"
-        viewImageXpath = '//*[@id="irc_cc"]/div[2]/div[3]/div[1]/div[2]/table[1]/tbody/tr/td[2]/a'
-        viewImageButton = WebDriverWait(driver, 20).until(lambda driver: driver.find_element_by_xpath(viewImageXpath))
+        #viewImageXpath = '//*[@id="irc_cc"]/div[2]/div[3]/div[1]/div/div[2]/table[1]/tbody/tr/td[2]/a/span'
+        viewImageButton = WebDriverWait(driver, 20).until(lambda driver: driver.find_element_by_link_text('View image'))
         newImageURL = viewImageButton.get_attribute('href')
 
         # Get the current image URL
+        print(str(newImageURL))
         driver.get(newImageURL)
         
         # Retrieve the dimensions of the new image
@@ -97,7 +105,7 @@ def run_bot():
     keyWord = ['!hiresbot', 'hiresbot']
     
     print("Grabbing subreddit...")
-    subreddit = r.get_subreddit("OldSchoolCool")
+    subreddit = r.get_subreddit("test")
 
     print("Grabbing comments...")
     comments = subreddit.get_comments(limit = 200)
@@ -114,9 +122,6 @@ def run_bot():
             # Grab the submission's image URL linked to the comment
             submissionURL = comment.submission.url
             print("Submission URL found!")
-
-            if "imgur" in submissionURL:
-                submissionURL = submissionURL + ".jpg"
             
             # Pass the submission URL to image_search() to compare dimensions
             userMessage = image_search(submissionURL)
@@ -132,4 +137,4 @@ def run_bot():
 
 while True:
     run_bot()
-    time.sleep(300)
+    time.sleep(20)
